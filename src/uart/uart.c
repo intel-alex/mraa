@@ -207,11 +207,7 @@ mraa_uart_init_raw(int index)
     // setup for a 'raw' mode.  8N1, no echo or special character
     // handling, such as flow control or line editing semantics.
     // cfmakeraw is not POSIX!
-    if (!cfmakeraw(&termio)) {
-        syslog(LOG_ERR, "uart: cmfmakeraw() failed");
-        free(dev);
-        return NULL;
-    }
+    cfmakeraw(&termio);
 
     if (!mraa_uart_set_baudrate(dev, 9600)) {
         free(dev);
